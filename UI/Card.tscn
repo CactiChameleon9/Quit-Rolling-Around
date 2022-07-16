@@ -7,7 +7,7 @@
 [ext_resource path="res://AutoGridContainer - Full Version/AutoGridContainer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Metropolis-font/Metropolis-Medium.ttf" type="DynamicFontData" id=6]
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.858824, 0.278431, 0.345098, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -45,7 +45,7 @@ card_info = ExtResource( 2 )
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 8 )
 
 [node name="VBox" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -59,14 +59,14 @@ margin_bottom = -10.0
 margin_right = 263.0
 margin_bottom = 31.0
 custom_fonts/font = SubResource( 2 )
-text = "The Card Name"
+text = "Broadsword"
 align = 1
 autowrap = true
 
 [node name="AutoGrid" parent="VBox" instance=ExtResource( 5 )]
 margin_top = 35.0
 margin_right = 263.0
-margin_bottom = 259.0
+margin_bottom = 256.0
 
 [node name="InputDice0" type="TextureRect" parent="VBox/AutoGrid"]
 margin_left = 9.0
@@ -90,12 +90,13 @@ align = 1
 valign = 1
 
 [node name="Description" type="Label" parent="VBox"]
-margin_top = 263.0
+margin_top = 260.0
 margin_right = 263.0
 margin_bottom = 353.0
 rect_min_size = Vector2( 0, 90 )
 custom_fonts/font = SubResource( 5 )
-text = "Description"
+text = "Does damage equal to the sum of both dice to all enemies
+Range: 2 spaces"
 align = 1
 valign = 1
 autowrap = true

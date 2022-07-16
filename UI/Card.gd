@@ -15,7 +15,11 @@ const TYPE_COLORS = [
 export (Resource) var card_info
 
 var input_dice = []
-var addition_dice_amount = card_info.addition_amount
+var addition_dice_amount : int setget _set_addition_dice
+
+
+func _set_addition_dice(new_amount):
+	$VBox/AutoGrid/InputDice0/Number.text = String(new_amount)
 
 
 func _ready():
@@ -34,6 +38,10 @@ func _ready():
 	# change the name and description
 	$VBox/Name.text = card_info.name
 	$VBox/Description.text = card_info.description
+	
+	#maybe set the addition amount
+	if card_info.addition_dice:
+		self.addition_dice_amount = card_info.addition_amount
 
 
 func dice_inputted(dice_number : int):
@@ -70,7 +78,7 @@ func dice_inputted(dice_number : int):
 	
 	# -- RUN DICE CHECKS --
 	if card_info.addition_dice:
-		addition_dice_amount -= dice_number
+		self.addition_dice_amount -= dice_number
 		input_dice.remove(0)
 		if addition_dice_amount > 0:
 			return
@@ -135,4 +143,9 @@ func run_card():
 			emit_signal("return_dice", dice_number)
 		
 	
+	#clear the input dice
 	input_dice = []
+	
+	#card is used, disappear
+	queue_free()
+
