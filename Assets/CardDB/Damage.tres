@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Assets/CardDB/CardBD.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+type = 0
+move_amount_addition = 0
+move_dice_multiplyer = 0
+damage_amount_addition = 0
+damage_dice_multiplyer = 1
+effects = [  ]
+accepted_dice = [  ]
+number_of_dice = 1
+same_dice_requirement = false
+addition_dice = false
+addition_amount = -1
+description = "Damage Dice Roll"

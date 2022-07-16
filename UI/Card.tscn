@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/Card.gd" type="Script" id=1]
-[ext_resource path="res://UI/CardStyle.tres" type="StyleBox" id=2]
+[ext_resource path="res://Assets/CardDB/Move.tres" type="Resource" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.858824, 0.278431, 0.345098, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="Card" type="Control"]
 anchor_right = 1.0
@@ -9,8 +16,9 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
+card_info = ExtResource( 2 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = ExtResource( 2 )
+custom_styles/panel = SubResource( 1 )
