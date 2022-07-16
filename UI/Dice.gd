@@ -13,4 +13,4 @@ func _set_dice_value(new_value):
 func _ready():
 	randomize()
 	
-	self.dice_value = round(rand_range(0.5, 6.49999999))
+	self.dice_value = int(round(rand_range(0.5, 6.49999999)))
