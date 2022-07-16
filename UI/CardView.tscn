@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/Card.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/CardDB/Sprint.tres" type="Resource" id=2]
+[ext_resource path="res://Assets/CardDB/Poisonous apple.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/CardDB/Broadsword.tres" type="Resource" id=4]
 
 [node name="CardView" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 277.0
-margin_right = -252.0
+margin_top = 249.0
 
 [node name="HBox" type="HBoxContainer" parent="."]
 anchor_right = 1.0
@@ -16,19 +18,22 @@ custom_constants/separation = 50
 [node name="Card1" parent="HBox" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 224.0
-margin_bottom = 323.0
+margin_right = 308.0
+margin_bottom = 351.0
+card_info = ExtResource( 2 )
 
 [node name="Card2" parent="HBox" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 274.0
-margin_right = 498.0
-margin_bottom = 323.0
+margin_left = 358.0
+margin_right = 666.0
+margin_bottom = 351.0
+card_info = ExtResource( 4 )
 
 [node name="Card3" parent="HBox" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 548.0
-margin_right = 772.0
-margin_bottom = 323.0
+margin_left = 716.0
+margin_right = 1024.0
+margin_bottom = 351.0
+card_info = ExtResource( 3 )
