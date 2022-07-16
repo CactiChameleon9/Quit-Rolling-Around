@@ -25,5 +25,11 @@ func _physics_process(delta):
 		if movement_queue.find(Vector2.ZERO) != -1:
 			movement_queue.remove(movement_queue.find(Vector2.ZERO))
 	
+	if len(movement_queue) == 0:
+		return
 	
-	
+	#move the character once space in the queue if not moving
+	if not $Player.moving:
+		$Player.map_position += movement_queue.pop_front()
+		$Player.target_position = $TileMap.map_to_world($Player.map_position)
+		$Player.target_position += $TileMap.cell_size/2
