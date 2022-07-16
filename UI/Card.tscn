@@ -1,14 +1,36 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://UI/Card.gd" type="Script" id=1]
-[ext_resource path="res://Assets/CardDB/Move.tres" type="Resource" id=2]
+[ext_resource path="res://Assets/CardDB/Damage.tres" type="Resource" id=2]
+[ext_resource path="res://Assets/Metropolis-font/Metropolis-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/DiceInput.png" type="Texture" id=4]
+[ext_resource path="res://AutoGridContainer - Full Version/AutoGridContainer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Metropolis-font/Metropolis-Medium.ttf" type="DynamicFontData" id=6]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.858824, 0.278431, 0.345098, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://Assets/Metropolis-font/Metropolis-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+use_filter = true
+font_data = SubResource( 4 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 64
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="Card" type="Control"]
 anchor_right = 1.0
@@ -21,4 +43,58 @@ card_info = ExtResource( 2 )
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 6 )
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+
+[node name="Name" type="Label" parent="VBox"]
+margin_right = 1004.0
+margin_bottom = 21.0
+custom_fonts/font = SubResource( 2 )
+text = "The Card Name"
+align = 1
+autowrap = true
+
+[node name="AutoGridContainer" parent="VBox" instance=ExtResource( 5 )]
+margin_top = 25.0
+margin_right = 1004.0
+margin_bottom = 486.0
+
+[node name="InputDice0" type="TextureRect" parent="VBox/AutoGridContainer"]
+margin_left = 9.0
+margin_right = 209.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Number" type="Label" parent="VBox/AutoGridContainer/InputDice0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "20"
+align = 1
+valign = 1
+
+[node name="Description" type="Label" parent="VBox"]
+margin_top = 490.0
+margin_right = 1004.0
+margin_bottom = 580.0
+rect_min_size = Vector2( 0, 90 )
+custom_fonts/font = SubResource( 5 )
+text = "Description"
+align = 1
+valign = 1
+autowrap = true

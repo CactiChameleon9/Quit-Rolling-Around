@@ -7,7 +7,7 @@ export (Resource) var card_info
 const TYPE_COLORS = [
 	Color("#db4758"), # DAMAGE
 	Color("#3cc361"), # UTILITY
-	Color("#ddd55c"), # SPECIAL
+	Color("#bcb64f"), # SPECIAL
 	Color("#bc5ec6"), # EFFECT
 	Color("#a4a4a4"), # MOVEMENT
 ]

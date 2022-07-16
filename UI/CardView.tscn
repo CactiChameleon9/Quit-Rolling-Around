@@ -1,10 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://UI/Card.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/CardDB/Damage.tres" type="Resource" id=2]
-[ext_resource path="res://Assets/DiceInput.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Dice/Dice2.png" type="Texture" id=4]
-[ext_resource path="res://Assets/CardDB/Effect.tres" type="Resource" id=5]
 
 [node name="CardView" type="Control"]
 anchor_right = 1.0
@@ -29,7 +25,6 @@ anchor_bottom = 0.0
 margin_left = 274.0
 margin_right = 498.0
 margin_bottom = 323.0
-card_info = ExtResource( 2 )
 
 [node name="Card3" parent="HBox" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -37,23 +32,3 @@ anchor_bottom = 0.0
 margin_left = 548.0
 margin_right = 772.0
 margin_bottom = 323.0
-card_info = ExtResource( 5 )
-
-[node name="DiceInput" type="Sprite" parent="."]
-position = Vector2( 111, 109 )
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 3 )
-
-[node name="DiceInput2" type="Sprite" parent="."]
-position = Vector2( 662, 109 )
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 3 )
-
-[node name="DiceInput3" type="Sprite" parent="."]
-position = Vector2( 387, 108 )
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 3 )
-
-[node name="Dice2" type="Sprite" parent="DiceInput3"]
-position = Vector2( -1390, 15 )
-texture = ExtResource( 4 )
