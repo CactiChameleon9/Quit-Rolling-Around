@@ -19,6 +19,7 @@ var addition_dice_amount : int setget _set_addition_dice
 
 
 func _set_addition_dice(new_amount):
+	addition_dice_amount = new_amount
 	$VBox/AutoGrid/InputDice0/Number.text = String(new_amount)
 
 
