@@ -4,15 +4,17 @@
 
 [resource]
 script = ExtResource( 1 )
-type = 0
-move_amount_addition = 0
-move_dice_multiplyer = 0
+name = "Sprint"
+type = 4
+effect_damage_range = 0
+move_amount_addition = 1
+move_dice_multiplyer = 1
 damage_amount_addition = 0
-damage_dice_multiplyer = 1
+damage_dice_multiplyer = 0
 effects = [  ]
 accepted_dice = [  ]
 number_of_dice = 1
 same_dice_requirement = false
 addition_dice = false
 addition_amount = -1
-description = "Damage Dice Roll"
+description = "Move your dice roll + 1 spaces"

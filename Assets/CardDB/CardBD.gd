@@ -10,8 +10,6 @@ enum TYPE {
 }
 
 enum EFFECT {
-	NONE
-	
 	POISON
 	BURN
 	CONFUSION
@@ -34,7 +32,11 @@ enum ACCEPTED_DICE {
 	DICE_6
 }
 
+export (String) var name = ""
+
 export (TYPE) var type
+
+export (int) var effect_damage_range = 0
 
 export (int) var move_amount_addition
 export (int) var move_dice_multiplyer

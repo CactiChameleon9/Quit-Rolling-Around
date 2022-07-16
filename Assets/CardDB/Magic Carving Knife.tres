@@ -4,15 +4,17 @@
 
 [resource]
 script = ExtResource( 1 )
-type = 4
-move_amount_addition = 1
-move_dice_multiplyer = 1
+name = "Magic Carving Knife"
+type = 1
+effect_damage_range = 0
+move_amount_addition = 0
+move_dice_multiplyer = 0
 damage_amount_addition = 0
 damage_dice_multiplyer = 0
-effects = [  ]
+effects = [ 4 ]
 accepted_dice = [  ]
 number_of_dice = 1
 same_dice_requirement = false
 addition_dice = false
 addition_amount = -1
-description = "Move Dice Roll + 1"
+description = "Split your dice in half"

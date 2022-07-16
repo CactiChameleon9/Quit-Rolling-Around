@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Assets/CardDB/CardBD.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Broadsword"
+type = 0
+effect_damage_range = 2
+move_amount_addition = 0
+move_dice_multiplyer = 1
+damage_amount_addition = 0
+damage_dice_multiplyer = 0
+effects = [  ]
+accepted_dice = [  ]
+number_of_dice = 2
+same_dice_requirement = false
+addition_dice = false
+addition_amount = -1
+description = "Does damage equal to the sum of both dice to all enemies
+Range: 2 spaces"

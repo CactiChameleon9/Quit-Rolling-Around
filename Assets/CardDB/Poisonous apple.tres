@@ -4,15 +4,18 @@
 
 [resource]
 script = ExtResource( 1 )
+name = "Poisonous apple"
 type = 3
+effect_damage_range = 3
 move_amount_addition = 0
-move_dice_multiplyer = 1
+move_dice_multiplyer = 0
 damage_amount_addition = 0
 damage_dice_multiplyer = 0
-effects = [ 4 ]
-accepted_dice = [  ]
+effects = [ 0, 9 ]
+accepted_dice = [ 0, 1 ]
 number_of_dice = 1
 same_dice_requirement = false
 addition_dice = false
 addition_amount = -1
-description = "Move Dice Roll + 1"
+description = "Poison enemies and reroll your dice
+Range: 3 spaces"
