@@ -112,7 +112,7 @@ func run_card():
 				new_dice2 += 0.5
 			
 			emit_signal("return_dice", new_dice1)
-			emit_signal("return_dice", new_dice1)
+			emit_signal("return_dice", new_dice2)
 		
 		if card_info.EFFECT.DOUBLE in card_info.effects:
 			var new_dice1 = dice_number * 2
