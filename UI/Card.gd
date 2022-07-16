@@ -85,5 +85,54 @@ func dice_inputted(dice_number : int):
 func run_card():
 	# calculate the damage amount
 	var damage = card_info.damage_amount_addition
-	for dice in input_dice:
-		damage += card_info.damage_dice_multiplyer * dice
+	for dice_number in input_dice:
+		damage += card_info.damage_dice_multiplyer * dice_number
+	
+	# do any utility dice returns
+	for dice_number in input_dice:
+		
+		if card_info.EFFECT.SPLIT in card_info.effects:
+			var halfed_dice = float(dice_number)/2.0
+			
+			var new_dice1 = halfed_dice
+			var new_dice2 = halfed_dice
+			
+			#if decimal value, then minus half and add half
+			if halfed_dice % 1 != 0:
+				new_dice1 -= 0.5
+				new_dice2 += 0.5
+			
+			emit_signal("return_dice", new_dice1)
+			emit_signal("return_dice", new_dice1)
+		
+		if card_info.EFFECT.DOUBLE in card_info.effects:
+			var new_dice1 = dice_number * 2
+			var new_dice2 = 0
+			
+			#dice has to be smaller than 7
+			if new_dice1 > 6:
+				new_dice1 -= 6
+				new_dice2 = 6
+				
+			emit_signal("return_dice", new_dice1)
+			if new_dice2 != 0: emit_signal("return_dice", new_dice1)
+		
+		if card_info.EFFECT.HALF in card_info.effects:
+			var new_dice = float(dice_number)/2.0
+			
+			#if decimal valued, add 0.5 or - 0.5 at random
+			if new_dice % 1 != 0:
+				new_dice += round(randf()) - 0.5
+				
+			emit_signal("return_dice", new_dice)
+		
+		if card_info.EFFECT.FLIP in card_info.effects:
+			# all opposite sides of a dice add up to 7
+			emit_signal("return_dice", 7 - dice_number)
+		
+		if card_info.EFFECT.DUPLICATE in card_info.effects:
+			emit_signal("return_dice", dice_number)
+			emit_signal("return_dice", dice_number)
+		
+	
+	input_dice = []
