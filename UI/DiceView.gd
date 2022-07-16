@@ -2,6 +2,8 @@ extends Control
 
 const dice = preload("res://UI/Dice.tscn")
 
+var selected : bool = true
+
 var current_dice = []
 
 func roll_dice(specific_value : int = 0):
