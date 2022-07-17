@@ -74,7 +74,7 @@ func dice_inputted(dice_number):
 		return
 	
 	#check if dice is within dice range
-	if dice_number >= 1 and dice_number <= 6:
+	if dice_number < 1 and dice_number > 6:
 		return
 	
 	#if accepted dice is specified, check if the dice is in the list

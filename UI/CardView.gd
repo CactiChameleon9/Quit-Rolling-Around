@@ -14,7 +14,6 @@ var currently_holding_dice = null
 
 func set_currently_holding_dice(dice_number : int):
 	currently_holding_dice = dice_number
-	print(dice_number)
 
 
 func _physics_process(delta):
@@ -50,9 +49,12 @@ func _physics_process(delta):
 	# show the dice over the card if hovering
 	current_cards[hovering_card].hovering_dice = currently_holding_dice
 	
-	#if the enter key is pressed, remove the selected card and emit the signal
+	#if the enter key is pressed, input the dice into the card
 	if Input.is_action_just_pressed("ui_accept"):
 		current_cards[hovering_card].dice_inputted(currently_holding_dice)
+		current_cards[hovering_card].hovering_dice = null
+		selected = false
+		
 	
 
 func draw_card(specific_card : String = ""):

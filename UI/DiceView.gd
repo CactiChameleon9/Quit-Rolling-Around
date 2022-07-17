@@ -47,8 +47,6 @@ func _physics_process(delta):
 	#if the enter key is pressed, remove the selected dice and emit the signal
 	if Input.is_action_just_pressed("ui_accept"):
 		emit_signal("dice_selected", current_dice[selected_dice].dice_value)
-		print(current_dice[selected_dice].dice_value)
-		print("current_dice[selected_dice].dice_value")
 		
 		current_dice[selected_dice].queue_free()
 		current_dice.remove(selected_dice)
