@@ -16,6 +16,7 @@ const TYPE_COLORS = [
 ]
 
 const dice_node = preload("res://UI/Dice.tscn")
+const dice_texture_string : String = "res://Assets/Dice/Dice%s.png"
 
 export (Resource) var card_info
 
@@ -25,6 +26,8 @@ var hovering_dice setget _set_hovering_dice
 
 
 func _set_hovering_dice(dice_value):
+	var input_dice0 = $VBox/AutoGrid.get_node_from_grid("InputDice0")
+	
 	if hovering_dice == dice_value:
 		return
 	
@@ -32,16 +35,16 @@ func _set_hovering_dice(dice_value):
 	
 	#remove the dice preview if not hovering
 	if dice_value == null:
-		var input_dice_children = $VBox/AutoGrid.get_node_from_grid("InputDice0").get_children()
+		var input_dice_children = input_dice0.get_children()
 		if len(input_dice_children) <= 1:
 			return
 		var old_dice = input_dice_children[1]
-		$VBox/AutoGrid.get_node_from_grid("InputDice0").remove_child(old_dice)
+		input_dice0.remove_child(old_dice)
 		return
 	
 	var new_dice = dice_node.instance()
 	new_dice.dice_value = dice_value
-	$VBox/AutoGrid.get_node_from_grid("InputDice0").add_child(new_dice)
+	input_dice0.add_child(new_dice)
 
 
 func _set_addition_dice(new_amount):
@@ -117,6 +120,12 @@ func dice_inputted(dice_number):
 			for _i in len(input_dice):
 				emit_signal("return_dice", input_dice[0])
 				input_dice.remove(0)
+	
+	
+	# Put the Dice in the slot
+	var input_dice0 = $VBox/AutoGrid.get_node_from_grid("InputDice0")
+	input_dice0.texture = load(dice_texture_string % dice_number)
+	
 	
 	# -- RUN DICE CHECKS --
 	if card_info.addition_dice:
