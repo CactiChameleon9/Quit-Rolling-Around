@@ -4,7 +4,7 @@ class_name Character
 export var base_max_health : int = 20
 export (int, 1, 5) var level : int = 1 setget level_change
 
-var health
+var health = base_max_health
 
 
 var map_position : Vector2 = Vector2.ZERO
