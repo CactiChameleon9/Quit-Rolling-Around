@@ -143,7 +143,7 @@ func run_card():
 			var new_dice2 = halfed_dice
 			
 			#if decimal value, then minus half and add half
-			if halfed_dice % 1 != 0:
+			if decimals(halfed_dice) != 0:
 				new_dice1 -= 0.5
 				new_dice2 += 0.5
 			
@@ -166,7 +166,7 @@ func run_card():
 			var new_dice = float(dice_number)/2.0
 			
 			#if decimal valued, add 0.5 or - 0.5 at random
-			if new_dice % 1 != 0:
+			if decimals(new_dice) != 0:
 				new_dice += round(randf()) - 0.5
 				
 			emit_signal("return_dice", new_dice)
