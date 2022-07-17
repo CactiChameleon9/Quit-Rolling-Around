@@ -146,13 +146,17 @@ func run_card():
 	var damage = card_info.damage_amount_addition
 	for dice_number in input_dice:
 		damage += card_info.damage_dice_multiplyer * dice_number
-	emit_signal("do_damage", damage, card_info.effect_damage_range)
+	
+	if damage != 0:
+		emit_signal("do_damage", damage, card_info.effect_damage_range)
 	
 	# calculate the damage amount
 	var movement = card_info.move_amount_addition
 	for dice_number in input_dice:
 		movement += card_info.move_dice_multiplyer * dice_number
-	emit_signal("do_movement", movement)
+	
+	if movement != 0:
+		emit_signal("do_movement", movement)
 	
 	# do any utility dice returns
 	for dice_number in input_dice:
