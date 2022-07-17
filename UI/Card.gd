@@ -69,6 +69,18 @@ func _ready():
 	#maybe set the addition amount
 	if card_info.addition_dice:
 		self.addition_dice_amount = card_info.addition_amount
+	
+	# show the requirements for a dice
+	# TODO more difference from addition, smaller font, >, <, etc. 
+	if len(card_info.accepted_dice) != 0:
+		var dice_string : String = ""
+		for num in card_info.accepted_dice:
+			dice_string += String(num)
+			dice_string += ","
+		
+		dice_string = dice_string.trim_suffix(",")
+		
+		$VBox/AutoGrid/InputDice0/Number.text = dice_string
 
 
 func dice_inputted(dice_number):
