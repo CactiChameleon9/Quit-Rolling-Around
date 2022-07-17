@@ -26,6 +26,8 @@ func _ready():
 	for child in get_children():
 		if child.is_in_group("OnMap"):
 			child.map_position = $TileMap.world_to_map(child.position)
+			child.target_position = $TileMap.map_to_world(child.map_position)
+			child.target_position += $TileMap.cell_size/2 
 
 
 func do_damage_around_player(damage, damage_range):
