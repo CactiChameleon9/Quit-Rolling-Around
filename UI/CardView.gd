@@ -1,5 +1,7 @@
 extends Control
 
+signal return_dice(dice_number)
+
 const card = preload("res://UI/Card.tscn")
 const card_db_string = "res://Assets/CardDB/%s.tres"
 
@@ -10,6 +12,10 @@ var hovering_card = null
 var current_cards = []
 
 var currently_holding_dice = null
+
+
+func emit_return_dice(dice_number):
+	emit_signal("return_dice", dice_number)
 
 
 func set_currently_holding_dice(dice_number : int):
@@ -71,6 +77,9 @@ func draw_card(specific_card : String = ""):
 		new_card.card_info = load(card_db_string % specific_card)
 	else: #no card choosen, pick default
 		new_card.card_info = load(card_db_string % "Default")
+	
+	# connect new_card.return_dice signal to self.emit_return_dice 
+	new_card.connect("return_dice", self, "emit_return_dice")
 	
 	# add the current card to the list of card
 	current_cards.append(new_card)
