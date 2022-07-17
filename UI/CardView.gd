@@ -80,17 +80,18 @@ func _physics_process(delta):
 func draw_card(specific_card : String = ""):
 	# make a new card instance and add it to the grid container
 	var new_card = card.instance()
-	$Margin/HBox.add_child(new_card)
 	
 	# check if a specific card data exists
 	var card_data_check = File.new()
 	var card_data_exists : bool = card_data_check.file_exists(card_db_string % specific_card)
-
+	
 	# if a specifc card choosen, make new card that type
 	if card_data_exists:
 		new_card.card_info = load(card_db_string % specific_card)
 	else: #no card choosen, pick default
 		new_card.card_info = load(card_db_string % "Default")
+	
+	$Margin/HBox.add_child(new_card)
 	
 	# connect new_card.x signal to self.x 
 	new_card.connect("return_dice", self, "emit_return_dice")
