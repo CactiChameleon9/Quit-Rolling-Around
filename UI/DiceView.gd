@@ -1,5 +1,7 @@
 extends Control
 
+signal dice_selected (dice_value)
+
 const dice = preload("res://UI/Dice.tscn")
 
 var selected : bool = false
@@ -41,6 +43,14 @@ func _physics_process(delta):
 	
 	# enable the selected shader
 	current_dice[selected_dice].selected = true
+	
+	#if the enter key is pressed, remove the selected dice and emit the signal
+	if Input.is_action_just_pressed("ui_accept"):
+		emit_signal("dice_selected", current_dice[selected_dice].dice_value)
+		
+		current_dice[selected_dice].queue_free()
+		current_dice.remove(selected_dice)
+		selected_dice = null
 
 
 func roll_dice(specific_value : int = 0):
