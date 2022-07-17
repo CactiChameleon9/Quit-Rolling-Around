@@ -13,6 +13,10 @@ func _ready():
 	$UI/CardView.selected = false
 	self.player_to_move = false
 	
+	$UI/CardView.draw_card()
+	$UI/CardView.draw_card()
+	$UI/CardView.draw_card()
+	
 	$UI/DiceView.roll_dice()
 	$UI/DiceView.roll_dice()
 	$UI/DiceView.roll_dice()
@@ -40,6 +44,7 @@ func _physics_process(delta):
 	# select the card chooser if dice is selected
 	if (Input.is_action_just_pressed("ui_accept")
 		and $UI/DiceView.selected == true):
+		yield(get_tree().create_timer(0.1), "timeout") #TODO BAD WORKAROUND
 		$UI/DiceView.selected = false
 		$UI/CardView.selected = true
 

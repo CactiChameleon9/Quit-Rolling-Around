@@ -11,16 +11,38 @@ const TYPE_COLORS = [
 	Color("#a4a4a4"), # MOVEMENT
 ]
 
+const dice_node = preload("res://UI/Dice.tscn")
 
 export (Resource) var card_info
 
 var input_dice = []
 var addition_dice_amount : int setget _set_addition_dice
+var hovering_dice setget _set_hovering_dice
+
+
+func _set_hovering_dice(dice_value):
+	if hovering_dice == dice_value:
+		return
+	
+	hovering_dice = dice_value
+	
+	#remove the dice preview if not hovering
+	if dice_value == null:
+		var input_dice_children = $VBox/AutoGrid.get_node_from_grid("InputDice0").get_children()
+		if len(input_dice_children) <= 1:
+			return
+		var old_dice = input_dice_children[1]
+		$VBox/AutoGrid.get_node_from_grid("InputDice0").remove_child(old_dice)
+		return
+	
+	var new_dice = dice_node.instance()
+	new_dice.dice_value = dice_value
+	$VBox/AutoGrid.get_node_from_grid("InputDice0").add_child(new_dice)
 
 
 func _set_addition_dice(new_amount):
 	addition_dice_amount = new_amount
-	$VBox/AutoGrid/InputDice0/Number.text = String(new_amount)
+	$VBox/AutoGrid.get_node_from_grid("InputDice0").get_child("Number").text = String(new_amount)
 
 
 func _ready():
@@ -45,9 +67,12 @@ func _ready():
 		self.addition_dice_amount = card_info.addition_amount
 
 
-func dice_inputted(dice_number : int):
+func dice_inputted(dice_number):
 	
 	# -- SINGLE DICE CHECKS --
+	if dice_number == null:
+		return
+	
 	#check if dice is within dice range
 	if dice_number >= 1 and dice_number <= 6:
 		return

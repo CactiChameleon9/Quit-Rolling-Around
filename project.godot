@@ -21,6 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Quit Rolling Around"
+run/main_scene="res://Scenes/BattleScene.tscn"
 config/icon="res://icon.png"
 
 [display]

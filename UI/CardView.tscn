@@ -1,9 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://UI/Card.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/CardDB/Sprint.tres" type="Resource" id=2]
-[ext_resource path="res://Assets/CardDB/Poisonous apple.tres" type="Resource" id=3]
-[ext_resource path="res://Assets/CardDB/Broadsword.tres" type="Resource" id=4]
 [ext_resource path="res://UI/CardView.gd" type="Script" id=5]
 
 [node name="CardView" type="Control"]
@@ -24,26 +20,3 @@ margin_right = 1220.0
 margin_bottom = 660.0
 rect_min_size = Vector2( 0, 300 )
 custom_constants/separation = 50
-
-[node name="Card1" parent="Margin/HBox" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 373.0
-margin_bottom = 660.0
-card_info = ExtResource( 2 )
-
-[node name="Card2" parent="Margin/HBox" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 423.0
-margin_right = 796.0
-margin_bottom = 660.0
-card_info = ExtResource( 4 )
-
-[node name="Card3" parent="Margin/HBox" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 846.0
-margin_right = 1220.0
-margin_bottom = 660.0
-card_info = ExtResource( 3 )
