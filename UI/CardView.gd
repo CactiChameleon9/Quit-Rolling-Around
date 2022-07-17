@@ -69,8 +69,7 @@ func _physics_process(delta):
 		current_cards[hovering_card].dice_inputted(currently_holding_dice)
 		current_cards[hovering_card].hovering_dice = null
 		selected = false
-		
-	
+
 
 func draw_card(specific_card : String = ""):
 	# make a new card instance and add it to the grid container

@@ -53,6 +53,13 @@ func _physics_process(delta):
 		yield(get_tree().create_timer(0.1), "timeout") #TODO BAD WORKAROUND
 		$UI/DiceView.selected = false
 		$UI/CardView.selected = true
+	
+	# if all 3 parts are done, select the DiceView again
+	if ($UI/DiceView.selected == false and
+		$UI/CardView.selected == false and
+		self.player_to_move == false):
+		
+		$UI/DiceView.selected = true
 
 
 func player_movement_input():
