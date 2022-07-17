@@ -2,9 +2,8 @@ extends Node2D
 
 export var map_position : Vector2 = Vector2.ZERO
 
-var target_position : Vector2 = Vector2.ZERO
+onready var target_position : Vector2 = position
 var moving : bool = false
-
 
 func _physics_process(delta):
 	

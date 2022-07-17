@@ -20,6 +20,12 @@ func _ready():
 	$UI/DiceView.roll_dice()
 	$UI/DiceView.roll_dice()
 	$UI/DiceView.roll_dice()
+	
+	
+	# generate all of the OnTile nodes's tile positions
+	for child in get_children():
+		if child.is_in_group("OnMap"):
+			child.map_position = $TileMap.world_to_map(child.position)
 
 
 func do_damage_around_player(damage, damage_range):
