@@ -17,6 +17,11 @@ func _physics_process(delta):
 		selected_dice = null
 		return
 	
+	# skip turn if the list is empty
+	if len(current_dice) == 0:
+		selected = false
+		return
+	
 	# if selected dice is null, add a value
 	if not selected_dice:
 		selected_dice = 0

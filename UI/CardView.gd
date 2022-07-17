@@ -71,8 +71,9 @@ func _physics_process(delta):
 	
 	#if the enter key is pressed, input the dice into the card
 	if Input.is_action_just_pressed("ui_accept"):
-		current_cards[hovering_card].dice_inputted(currently_holding_dice)
 		current_cards[hovering_card].hovering_dice = null
+		current_cards[hovering_card].dice_inputted(currently_holding_dice)
+		hovering_card = 0
 		selected = false
 
 
