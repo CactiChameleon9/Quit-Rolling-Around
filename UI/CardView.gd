@@ -31,6 +31,11 @@ func set_currently_holding_dice(dice_number : int):
 	currently_holding_dice = dice_number
 
 
+func remove_card(card):
+	var card_index = current_cards.find(card)
+	current_cards.remove(card_index)
+
+
 func _physics_process(delta):
 	
 	# no keyboard input if not selected  
@@ -86,11 +91,14 @@ func draw_card(specific_card : String = ""):
 	else: #no card choosen, pick default
 		new_card.card_info = load(card_db_string % "Default")
 	
-	# connect new_card.return_dice signal to self.emit_return_dice 
+	# connect new_card.x signal to self.x 
 	new_card.connect("return_dice", self, "emit_return_dice")
 	new_card.connect("do_movement", self, "emit_do_movement")
 	new_card.connect("do_damage", self, "emit_do_damage")
 	new_card.connect("do_effect", self, "emit_do_effect")
+	
+	# connect the signal remove card signal
+	new_card.connect("card_removed", self, "remove_card")
 	
 	# add the current card to the list of card
 	current_cards.append(new_card)

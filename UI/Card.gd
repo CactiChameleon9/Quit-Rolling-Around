@@ -5,6 +5,7 @@ signal return_dice(dice_number)
 signal do_movement(movement_range)
 signal do_damage(damage, damage_range)
 signal do_effect(effect, effect_range)
+signal card_removed(card_self)
 
 const TYPE_COLORS = [
 	Color("#db4758"), # DAMAGE
@@ -187,5 +188,6 @@ func run_card():
 	input_dice = []
 	
 	#card is used, disappear
+	emit_signal("card_removed", self)
 	queue_free()
 
