@@ -9,9 +9,13 @@ var player_movement_range = 5
 
 func _ready():
 	# start with the DiceView being selected 
-	$Diceiew.selected = true
-	$CardView.selected = false
-	self.selected = false
+	$UI/DiceView.selected = true
+	$UI/CardView.selected = false
+	self.player_to_move = false
+	
+	$UI/DiceView.roll_dice()
+	$UI/DiceView.roll_dice()
+	$UI/DiceView.roll_dice()
 
 
 func set_player_to_move(movement_range : int = 0):

@@ -23,17 +23,24 @@ func _physics_process(delta):
 	# move the selection forward or backward the list depending on input
 	if (Input.is_action_just_pressed("ui_up") or 
 		Input.is_action_just_pressed("ui_left")):
+			
+			current_dice[selected_dice].selected = false
+			
 			selected_dice += 1
-			if selected_dice <= len(current_dice):
+			if selected_dice >= len(current_dice):
 				selected_dice = 0
 	
 	if (Input.is_action_just_pressed("ui_down") or
 		Input.is_action_just_pressed("ui_right")):
+			
+			current_dice[selected_dice].selected = false
+			
 			selected_dice -= 1
-			if selected_dice > 0:
+			if selected_dice < 0:
 				selected_dice = len(current_dice) -1
 	
-	
+	# enable the selected shader
+	current_dice[selected_dice].selected = true
 
 
 func roll_dice(specific_value : int = 0):
