@@ -6,6 +6,19 @@ var player_to_move : bool = false
 var player_original_position : Vector2 = Vector2.ZERO
 var player_movement_range = 5
 
+
+func _ready():
+	# start with the DiceView being selected 
+	$Diceiew.selected = true
+	$CardView.selected = false
+	self.selected = false
+
+
+func set_player_to_move(movement_range : int = 0):
+	player_to_move = true
+	player_movement_range = movement_range
+
+
 func _physics_process(delta):
 	
 	# player should carry on queued movements no matter what
