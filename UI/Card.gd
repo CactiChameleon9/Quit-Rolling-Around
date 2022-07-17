@@ -2,6 +2,9 @@ tool
 extends Control
 
 signal return_dice(dice_number)
+signal do_movement(movement_range)
+signal do_damage(damage, damage_range)
+signal do_effect(effect, effect_range)
 
 const TYPE_COLORS = [
 	Color("#db4758"), # DAMAGE
@@ -121,11 +124,12 @@ func run_card():
 	var damage = card_info.damage_amount_addition
 	for dice_number in input_dice:
 		damage += card_info.damage_dice_multiplyer * dice_number
+	emit_signal("do_damage", damage, card_info.effect_damage_range)
 	
 	# do any utility dice returns
 	for dice_number in input_dice:
 		
-		if card_info.EFFECT.SPLIT in card_info.effects:
+		if Global.EFFECT.SPLIT in card_info.effects:
 			var halfed_dice = float(dice_number)/2.0
 			
 			var new_dice1 = halfed_dice
@@ -139,7 +143,7 @@ func run_card():
 			emit_signal("return_dice", new_dice1)
 			emit_signal("return_dice", new_dice2)
 		
-		if card_info.EFFECT.DOUBLE in card_info.effects:
+		if Global.EFFECT.DOUBLE in card_info.effects:
 			var new_dice1 = dice_number * 2
 			var new_dice2 = 0
 			
@@ -151,7 +155,7 @@ func run_card():
 			emit_signal("return_dice", new_dice1)
 			if new_dice2 != 0: emit_signal("return_dice", new_dice1)
 		
-		if card_info.EFFECT.HALF in card_info.effects:
+		if Global.EFFECT.HALF in card_info.effects:
 			var new_dice = float(dice_number)/2.0
 			
 			#if decimal valued, add 0.5 or - 0.5 at random
@@ -160,14 +164,19 @@ func run_card():
 				
 			emit_signal("return_dice", new_dice)
 		
-		if card_info.EFFECT.FLIP in card_info.effects:
+		if Global.EFFECT.FLIP in card_info.effects:
 			# all opposite sides of a dice add up to 7
 			emit_signal("return_dice", 7 - dice_number)
 		
-		if card_info.EFFECT.DUPLICATE in card_info.effects:
+		if Global.EFFECT.DUPLICATE in card_info.effects:
 			emit_signal("return_dice", dice_number)
 			emit_signal("return_dice", dice_number)
-		
+	
+	# for each effect, emit do effect with the range
+	for effect in card_info.effects:
+		emit_signal("do_effect", effect, card_info.effect_damage_range)
+	
+	emit_signal("do_movement", card_info.movement)
 	
 	#clear the input dice
 	input_dice = []

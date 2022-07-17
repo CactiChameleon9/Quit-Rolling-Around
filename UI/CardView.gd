@@ -1,6 +1,9 @@
 extends Control
 
 signal return_dice(dice_number)
+signal do_movement(movement_range)
+signal do_damage(damage, damage_range)
+signal do_effect(effect, effect_range)
 
 const card = preload("res://UI/Card.tscn")
 const card_db_string = "res://Assets/CardDB/%s.tres"
@@ -16,6 +19,12 @@ var currently_holding_dice = null
 
 func emit_return_dice(dice_number):
 	emit_signal("return_dice", dice_number)
+func emit_do_movement(movement_range):
+	emit_signal("do_movement", movement_range)
+func emit_do_damage(damage, damage_range):
+	emit_signal("do_damage", damage, damage_range)
+func emit_do_effect(effect, effect_range):
+	emit_signal("do_effect", effect, effect_range)
 
 
 func set_currently_holding_dice(dice_number : int):
@@ -80,6 +89,9 @@ func draw_card(specific_card : String = ""):
 	
 	# connect new_card.return_dice signal to self.emit_return_dice 
 	new_card.connect("return_dice", self, "emit_return_dice")
+	new_card.connect("do_movement", self, "emit_do_movement")
+	new_card.connect("do_damage", self, "emit_do_damage")
+	new_card.connect("do_effect", self, "emit_do_effect")
 	
 	# add the current card to the list of card
 	current_cards.append(new_card)

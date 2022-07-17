@@ -24,6 +24,10 @@ config/name="Quit Rolling Around"
 run/main_scene="res://Scenes/BattleScene.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Global.gd"
+
 [display]
 
 window/size/width=1280

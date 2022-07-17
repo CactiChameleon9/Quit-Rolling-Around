@@ -76,5 +76,8 @@ margin_left = 1.52588e-05
 margin_top = -7.62939e-06
 grow_horizontal = 0
 
+[connection signal="do_damage" from="UI/CardView" to="." method="do_damage_around_player"]
+[connection signal="do_effect" from="UI/CardView" to="." method="do_effect_around_player"]
+[connection signal="do_movement" from="UI/CardView" to="." method="set_player_to_move"]
 [connection signal="return_dice" from="UI/CardView" to="UI/DiceView" method="roll_dice"]
 [connection signal="dice_selected" from="UI/DiceView" to="UI/CardView" method="set_currently_holding_dice"]

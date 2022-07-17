@@ -22,6 +22,12 @@ func _ready():
 	$UI/DiceView.roll_dice()
 
 
+func do_damage_around_player(damage, damage_range):
+	pass
+
+func do_effect_around_player(effect, effect_range):
+	pass
+
 func set_player_to_move(movement_range : int = 0):
 	player_to_move = true
 	player_movement_range = movement_range

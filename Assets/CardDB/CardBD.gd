@@ -9,20 +9,6 @@ enum TYPE {
 	MOVEMENT
 }
 
-enum EFFECT {
-	POISON
-	BURN
-	CONFUSION
-	WEAKNESS
-	
-	SPLIT
-	DOUBLE
-	HALF
-	FLIP
-	DUPLICATE
-	REROLL
-}
-
 enum ACCEPTED_DICE {
 	DICE_1
 	DICE_2
@@ -44,7 +30,7 @@ export (int) var move_dice_multiplyer
 export (int) var damage_amount_addition
 export (int) var damage_dice_multiplyer
 
-export (Array, EFFECT) var effects
+export (Array, Global.EFFECT) var effects
 
 export (Array, ACCEPTED_DICE) var accepted_dice
 
