@@ -13,7 +13,7 @@ func _ready():
 	$UI/CardView.selected = false
 	self.player_to_move = false
 	
-	$UI/CardView.draw_card("Poisonous apple")
+	$UI/CardView.draw_card("Broadsword")
 	$UI/CardView.draw_card("Sprint")
 	$UI/CardView.draw_card("Magic Carving Knife")
 	
@@ -34,10 +34,10 @@ func do_damage_around_player(damage, damage_range):
 	for enemy in get_children():
 		
 		if not enemy.is_in_group("Enemy"):
-			return
+			continue
 		
 		if ($Player.map_position - enemy.map_position).length() > damage_range:
-			return
+			continue
 		
 		enemy.take_damage(damage)
 
