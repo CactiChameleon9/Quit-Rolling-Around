@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://UI/Card.gd" type="Script" id=1]
-[ext_resource path="res://Assets/CardDB/Default.tres" type="Resource" id=2]
-[ext_resource path="res://Assets/Metropolis-font/Metropolis-Bold.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Assets/DiceInput.png" type="Texture" id=4]
-[ext_resource path="res://AutoGridContainer - Full Version/AutoGridContainer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/Metropolis-font/Metropolis-Medium.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Assets/Metropolis-font/Metropolis-Medium.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Metropolis-font/Metropolis-Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/DiceInput.png" type="Texture" id=5]
+[ext_resource path="res://AutoGridContainer - Full Version/AutoGridContainer.tscn" type="PackedScene" id=6]
 
 [sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.858824, 0.278431, 0.345098, 1 )
@@ -25,20 +23,18 @@ font_data = SubResource( 4 )
 [sub_resource type="DynamicFont" id=7]
 size = 64
 use_filter = true
-font_data = ExtResource( 6 )
+font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 20
 use_filter = true
-font_data = ExtResource( 3 )
+font_data = ExtResource( 4 )
 
-[node name="Card" type="Control"]
+[node name="CardView" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 1 )
-card_info = ExtResource( 2 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
@@ -61,7 +57,7 @@ text = "Default"
 align = 1
 autowrap = true
 
-[node name="AutoGrid" parent="VBox" instance=ExtResource( 5 )]
+[node name="AutoGrid" parent="VBox" instance=ExtResource( 6 )]
 margin_top = 35.0
 margin_right = 1260.0
 margin_bottom = 606.0
@@ -74,7 +70,7 @@ margin_bottom = 155.0
 rect_min_size = Vector2( 75, 75 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
 
