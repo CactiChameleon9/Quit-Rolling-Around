@@ -6,8 +6,6 @@ signal do_damage(damage, damage_range)
 signal do_effect(effect, effect_range)
 signal card_removed(card_self)
 
-const dice_node = preload("res://UI/Dice.tscn")
-
 export (Resource) var card_info
 
 var input_dice = []
@@ -50,14 +48,18 @@ func dice_inputted(dice_number):
 	
 	
 	# -- RUN DICE CHECKS --
-	if card_info.addition_dice:
-		addition_dice_amount -= dice_number
-		input_dice.remove(0)
-		if addition_dice_amount > 0:
-			return
-		else:
-			run_card()
 	
+	# if the addition type, then lower the counter by the input dice
+	# also check (and run) if the amount is reaches and
+	if card_info.addition_dice:
+		
+		addition_dice_amount -= dice_number
+		
+		if addition_dice_amount <= 0:
+			run_card()
+		return
+	
+	# run the card if the correct number of dice have been inputted (and normal dice)
 	if (len(input_dice) == card_info.number_of_dice
 		and not card_info.addition_dice):
 		run_card()
