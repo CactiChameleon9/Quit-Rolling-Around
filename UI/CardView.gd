@@ -26,13 +26,13 @@ func update_cardview(new_card = null):
 		card = new_card
 	
 	# change the color of the panel to match the appropriate type
-	var card_style = $Background.get('custom_styles/panel').duplicate(true)
+	var card_style = $"%Background".get('custom_styles/panel').duplicate(true)
 	card_style.set_bg_color(TYPE_COLORS[card.card_info.type])
-	$Background.set('custom_styles/panel', card_style)
+	$"%Background".set('custom_styles/panel', card_style)
 	
 	# change the name and description
-	$VBox/Name.text = card.card_info.name
-	$VBox/Description.text = card.card_info.description
+	$"%Name".text = card.card_info.name
+	$"%Description".text = card.card_info.description
 	
 	# add the correct number of input dice views
 	for i in card.card_info.number_of_dice:
