@@ -41,16 +41,22 @@ func update_cardview(new_card = null):
 	# set the extra info
 	var extra_text = ""
 	if card.card_info.addition_dice == true:
-		extra_text = card.addition_dice_amount
+		# set the dice to have the remaining addition 
+		extra_text = str(card.addition_dice_amount)
 	
 	else:
+		# set the dice to have a list of accepted dice
 		for dice in card.card_info.accepted_dice:
 			extra_text += str(dice) + ", "
 		extra_text = extra_text.trim_suffix(", ")
 	
 	for i in input_dice_views:
 		i.set_extra_info(extra_text)
-
+	
+	# set bold dice if addition dice
+	for i in input_dice_views:
+		i.bold = true
+	
 
 # add an input_dice_view to the array (for easy management)
 # and to the autogrid
