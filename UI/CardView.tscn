@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Assets/Metropolis-font/Metropolis-Medium.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/CardView.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Metropolis-font/Metropolis-Bold.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://Assets/DiceInput.png" type="Texture" id=5]
 [ext_resource path="res://AutoGridContainer - Full Version/AutoGridContainer.tscn" type="PackedScene" id=6]
 
 [sub_resource type="StyleBoxFlat" id=8]
@@ -20,11 +19,6 @@ size = 30
 use_filter = true
 font_data = SubResource( 4 )
 
-[sub_resource type="DynamicFont" id=7]
-size = 64
-use_filter = true
-font_data = ExtResource( 2 )
-
 [sub_resource type="DynamicFont" id=5]
 size = 20
 use_filter = true
@@ -33,10 +27,13 @@ font_data = ExtResource( 4 )
 [node name="CardView" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -965.0
+margin_bottom = -325.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource( 1 )
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Background" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 8 )
@@ -50,7 +47,7 @@ margin_right = -10.0
 margin_bottom = -10.0
 
 [node name="Name" type="Label" parent="VBox"]
-margin_right = 1260.0
+margin_right = 295.0
 margin_bottom = 31.0
 custom_fonts/font = SubResource( 2 )
 text = "Default"
@@ -58,36 +55,17 @@ align = 1
 autowrap = true
 
 [node name="AutoGrid" parent="VBox" instance=ExtResource( 6 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 35.0
-margin_right = 1260.0
-margin_bottom = 606.0
-
-[node name="InputDice0" type="TextureRect" parent="VBox/AutoGrid"]
-margin_left = 42.0
-margin_top = 5.0
-margin_right = 192.0
-margin_bottom = 155.0
-rect_min_size = Vector2( 75, 75 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 6
-
-[node name="Number" type="Label" parent="VBox/AutoGrid/InputDice0"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 7 )
-align = 1
-valign = 1
+margin_right = 295.0
+margin_bottom = 281.0
 
 [node name="Description" type="Label" parent="VBox"]
-margin_top = 610.0
-margin_right = 1260.0
-margin_bottom = 700.0
+margin_top = 285.0
+margin_right = 295.0
+margin_bottom = 375.0
 rect_min_size = Vector2( 0, 90 )
 custom_fonts/font = SubResource( 5 )
 text = "Default Description"
