@@ -1,4 +1,5 @@
 extends Node
+class_name Card
 
 signal return_dice(dice_number)
 signal do_movement(movement_range)
@@ -6,7 +7,7 @@ signal do_damage(damage, damage_range)
 signal do_effect(effect, effect_range)
 signal card_removed(card_self)
 
-export (Resource) var card_info
+export (Resource) var card_info = preload("res://Assets/CardDB/Default.tres")
 
 var input_dice = []
 var addition_dice_amount = card_info.addition_amount
