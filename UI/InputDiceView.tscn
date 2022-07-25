@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Assets/Metropolis-font/Metropolis-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Metropolis-font/Metropolis-SemiBold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/DiceInput.png" type="Texture" id=2]
 [ext_resource path="res://UI/InputDiceView.gd" type="Script" id=3]
 
