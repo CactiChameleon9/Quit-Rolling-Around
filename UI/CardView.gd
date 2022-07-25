@@ -54,8 +54,9 @@ func update_cardview(new_card = null):
 		i.set_extra_info(extra_text)
 	
 	# set bold dice if addition dice
-	for i in input_dice_views:
-		i.bold = true
+	if card.card_info.addition_dice == true:
+		for i in input_dice_views:
+			i.bold = true
 	
 
 # add an input_dice_view to the array (for easy management)
