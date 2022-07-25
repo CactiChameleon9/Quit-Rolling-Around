@@ -1,6 +1,8 @@
 tool
 extends Control
 
+export var bold : bool setget set_bold
+
 
 func _process(_delta):
 	
@@ -12,3 +14,12 @@ func _process(_delta):
 
 func set_extra_info(text : String):
 	$"%ExtraInfo".text = text
+
+
+func set_bold(is_bold : bool = true):
+	if is_bold:
+		$Sprite.texture = load("res://Assets/DiceInputBold.png")
+	else:
+		$Sprite.texture = load("res://Assets/DiceInput.png")
+	
+	bold = is_bold
