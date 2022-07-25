@@ -1,3 +1,4 @@
+tool
 extends Control
 
 const TYPE_COLORS = [
@@ -36,6 +37,19 @@ func update_cardview(new_card = null):
 	# add the correct number of input dice views
 	for i in card.card_info.number_of_dice:
 		add_input_dice_view()
+	
+	# set the extra info
+	var extra_text = ""
+	if card.card_info.addition_dice == true:
+		extra_text = card.addition_dice_amount
+	
+	else:
+		for dice in card.card_info.accepted_dice:
+			extra_text += str(dice) + ", "
+		extra_text = extra_text.trim_suffix(", ")
+	
+	for i in input_dice_views:
+		i.set_extra_info(extra_text)
 
 
 # add an input_dice_view to the array (for easy management)
