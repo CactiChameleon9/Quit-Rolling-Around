@@ -17,6 +17,7 @@ var card : Card = Card.new() setget update_cardview
 
 func _ready():
 	update_cardview()
+	connect_signals()
 
 
 func update_cardview(new_card = null):
@@ -24,6 +25,7 @@ func update_cardview(new_card = null):
 	# allow the update card function to work with and without setget
 	if new_card != null:
 		card = new_card
+		connect_signals()
 	
 	# change the color of the panel to match the appropriate type
 	var card_style = $"%Background".get('custom_styles/panel').duplicate(true)
@@ -65,3 +67,7 @@ func add_input_dice_view():
 	var dice_view = input_dice_view.instance() 
 	input_dice_views.append(dice_view)
 	$"%AutoGrid".add_child(dice_view)
+
+
+func connect_signals():
+	card.connect("card_removed", self, "card_view_use")
