@@ -18,7 +18,6 @@ var card : Card = Card.new() setget update_cardview
 func _ready():
 	update_cardview()
 	connect_signals()
-	card_view_run()
 
 
 func update_cardview(new_card = null):
