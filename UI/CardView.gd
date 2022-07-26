@@ -60,6 +60,9 @@ func update_cardview(new_card = null):
 		for i in input_dice_views:
 			i.bold = true
 	
+	#TODO: same dice UI support
+	#TODO: hover UI support maybe
+
 
 # add an input_dice_view to the array (for easy management)
 # and to the autogrid
