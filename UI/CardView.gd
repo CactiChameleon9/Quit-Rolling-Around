@@ -87,5 +87,14 @@ func card_view_run():
 	queue_free()
 
 
+func card_view_remove():
+	# play the remove animation
+	$AnimationPlayer.play("Drop Off")
+	yield($AnimationPlayer, "animation_finished")
+	
+	# remove the card completely once used
+	queue_free()
+
+
 func connect_signals():
 	card.connect("card_removed", self, "card_view_run")

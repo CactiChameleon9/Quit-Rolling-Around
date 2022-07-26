@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/CardView.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Metropolis-font/Metropolis-Bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://AutoGridContainer - Full Version/AutoGridContainer.tscn" type="PackedScene" id=6]
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.858824, 0.278431, 0.345098, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -23,6 +23,22 @@ font_data = SubResource( 4 )
 size = 20
 use_filter = true
 font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "Drop Off"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("LocalPosition:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.297304, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 800 ) ]
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "Fly Off"
@@ -97,7 +113,7 @@ anchor_bottom = 1.0
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 9 )
 
 [node name="VBox" type="VBoxContainer" parent="LocalPosition"]
 anchor_right = 1.0
@@ -135,5 +151,6 @@ valign = 1
 autowrap = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/Drop Off" = SubResource( 10 )
 "anims/Fly Off" = SubResource( 7 )
 anims/RESET = SubResource( 8 )
