@@ -18,6 +18,7 @@ var card : Card = Card.new() setget update_cardview
 func _ready():
 	update_cardview()
 	connect_signals()
+	card_view_run()
 
 
 func update_cardview(new_card = null):
@@ -71,6 +72,11 @@ func add_input_dice_view():
 
 # this is run once the card emits card_removed
 func card_view_run():
+	
+	# play the disappearing input dice animation
+	for i in input_dice_views:
+		yield(i.run_disappear_animation(), "completed")
+	
 	# play the using animation
 	$AnimationPlayer.play("Fly Off")
 	yield($AnimationPlayer, "animation_finished")

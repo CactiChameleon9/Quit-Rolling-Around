@@ -23,3 +23,8 @@ func set_bold(is_bold : bool = true):
 		$Sprite.texture = load("res://Assets/DiceInput.png")
 	
 	bold = is_bold
+
+
+func run_disappear_animation():
+	$AnimationPlayer.play("Disappear")
+	yield($AnimationPlayer, "animation_finished")
