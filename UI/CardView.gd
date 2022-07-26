@@ -69,5 +69,15 @@ func add_input_dice_view():
 	$"%AutoGrid".add_child(dice_view)
 
 
+# this is run once the card emits card_removed
+func card_view_run():
+	# play the using animation
+	$AnimationPlayer.play("Fly Off")
+	yield($AnimationPlayer, "animation_finished")
+	
+	# remove the card completely once used
+	queue_free()
+
+
 func connect_signals():
-	card.connect("card_removed", self, "card_view_use")
+	card.connect("card_removed", self, "card_view_run")
