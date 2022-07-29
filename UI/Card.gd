@@ -5,7 +5,7 @@ signal return_dice(dice_number)
 signal do_movement(movement_range)
 signal do_damage(damage, damage_range)
 signal do_effect(effect, effect_range)
-signal card_removed(card_self)
+signal card_removed()
 
 export (Resource) var card_info = preload("res://Assets/CardDB/Default.tres")
 
@@ -138,6 +138,6 @@ func run_card():
 	input_dice = []
 	
 	#card is used, disappear
-	emit_signal("card_removed", self)
+	emit_signal("card_removed")
 	queue_free()
 
