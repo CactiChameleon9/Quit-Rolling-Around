@@ -14,7 +14,8 @@ func update_cards_shown(new_character = null):
 	
 	# remove the old cards
 	for card_view in card_views:
-		yield(card_view.card_view_remove(), "completed")
+		yield(card_view.card_view_remove(false), "completed")
+	card_views = []
 	
 	# add cards the new cards from the character
 	for card in character.cards:
@@ -22,3 +23,10 @@ func update_cards_shown(new_character = null):
 		new_card_view.card = card
 		$Margin/HBox.add_child(new_card_view)
 		card_views.append(new_card_view)
+		new_card_view.connect("card_view_removed", self, "remove_from_card_views")
+
+
+func remove_from_card_views(card_view):
+	var to_remove : int = card_views.find(card_view)
+	if to_remove != -1:
+		card_views.remove(to_remove)
