@@ -1,6 +1,8 @@
 tool
 extends Control
 
+signal card_view_removed(card_view)
+
 const TYPE_COLORS = [
 	Color("#db4758"), # DAMAGE
 	Color("#3cc361"), # UTILITY
@@ -15,15 +17,11 @@ var input_dice_views = []
 var card : Card = Card.new() setget update_cardview
 
 
-func _ready():
-	update_cardview()
-	connect_signals()
-
-
 func update_cardview(new_card = null):
 	
 	# allow the update card function to work with and without setget
-	if new_card != null:
+	if new_card != null and new_card != card:
+		disconnect_signals()
 		card = new_card
 		connect_signals()
 	
@@ -35,6 +33,11 @@ func update_cardview(new_card = null):
 	# change the name and description
 	$"%Name".text = card.card_info.name
 	$"%Description".text = card.card_info.description
+	
+	# remove the old input dice views
+	for i in input_dice_views:
+		i.queue_free()
+	input_dice_views = []
 	
 	# add the correct number of input dice views
 	for i in card.card_info.number_of_dice:
@@ -73,7 +76,9 @@ func add_input_dice_view():
 
 
 # this is run once the card emits card_removed
-func card_view_run():
+func card_view_run(do_emit_signal : bool = true):
+	# emit card_view_removed signal
+	if do_emit_signal: emit_signal("card_view_removed", self)
 	
 	# play the disappearing input dice animation
 	for i in input_dice_views:
@@ -87,13 +92,23 @@ func card_view_run():
 	queue_free()
 
 
-func card_view_remove():
+func card_view_remove(do_emit_signal : bool = true):
+	# emit card_view_removed signal
+	if do_emit_signal: emit_signal("card_view_removed", self)
+
 	# play the remove animation
 	$AnimationPlayer.play("Drop Off")
 	yield($AnimationPlayer, "animation_finished")
 	
 	# remove the card completely once used
 	queue_free()
+
+
+func disconnect_signals():
+	if card.get_signal_connection_list("card_removed") == []:
+		return
+	
+	card.disconnect("card_removed", self, "card_view_run")
 
 
 func connect_signals():
