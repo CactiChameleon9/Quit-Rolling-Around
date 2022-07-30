@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Characters/Character.gd" type="Script" id=1]
+[ext_resource path="res://UI/CardContainer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Card.gd" type="Script" id=3]
+[ext_resource path="res://Assets/CardDB/Broadsword.tres" type="Resource" id=4]
+[ext_resource path="res://Assets/CardDB/Poisonous apple.tres" type="Resource" id=5]
+[ext_resource path="res://Assets/CardDB/Magic Carving Knife.tres" type="Resource" id=6]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+
+func _ready():
+	$CanvasLayer/CardContainer.character = $Character
+	yield(get_tree().create_timer(1), \"timeout\")
+	$Character/Card2.run_card()
+	yield(get_tree().create_timer(5), \"timeout\")
+	$CanvasLayer/CardContainer.character = $Character2
+	
+	yield(get_tree().create_timer(5), \"timeout\")
+	$Character2/Card4.run_card()
+"
+
+[node name="TempBattle" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CardContainer" parent="CanvasLayer" instance=ExtResource( 2 )]
+margin_top = 317.0
+margin_right = -321.0
+
+[node name="Character" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="Card1" type="Node" parent="Character"]
+script = ExtResource( 3 )
+card_info = ExtResource( 4 )
+
+[node name="Card2" type="Node" parent="Character"]
+script = ExtResource( 3 )
+card_info = ExtResource( 5 )
+
+[node name="Card3" type="Node" parent="Character"]
+script = ExtResource( 3 )
+
+[node name="Character2" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="Card4" type="Node" parent="Character2"]
+script = ExtResource( 3 )
+card_info = ExtResource( 4 )
+
+[node name="Card5" type="Node" parent="Character2"]
+script = ExtResource( 3 )
+card_info = ExtResource( 5 )
+
+[node name="Card6" type="Node" parent="Character2"]
+script = ExtResource( 3 )
+card_info = ExtResource( 6 )
+
+[node name="Character3" type="Node2D" parent="."]
+script = ExtResource( 1 )

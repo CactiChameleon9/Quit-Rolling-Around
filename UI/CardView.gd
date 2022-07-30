@@ -1,4 +1,3 @@
-tool
 extends Control
 
 signal card_view_removed(card_view)
@@ -81,8 +80,7 @@ func card_view_run(do_emit_signal : bool = true):
 	if do_emit_signal: emit_signal("card_view_removed", self)
 	
 	# play the disappearing input dice animation
-	for i in input_dice_views:
-		yield(i.run_disappear_animation(), "completed")
+	play_input_dice_animations()
 	
 	# play the using animation
 	$AnimationPlayer.play("Fly Off")
@@ -102,6 +100,11 @@ func card_view_remove(do_emit_signal : bool = true):
 	
 	# remove the card completely once used
 	queue_free()
+
+
+func play_input_dice_animations():
+	for i in input_dice_views:
+		i.run_disappear_animation()
 
 
 func disconnect_signals():

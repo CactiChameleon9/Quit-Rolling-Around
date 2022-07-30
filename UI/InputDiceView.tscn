@@ -71,6 +71,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/ExtraInfo:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=9]
 length = 0.001
@@ -110,6 +122,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/ExtraInfo:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="InputDiceView" type="Control"]
 anchor_right = 1.0
@@ -140,7 +164,7 @@ texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 
-[node name="ExtraInfo" type="Label" parent="."]
+[node name="ExtraInfo" type="Label" parent="Sprite"]
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
