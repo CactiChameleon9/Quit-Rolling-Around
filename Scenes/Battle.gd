@@ -3,6 +3,7 @@ extends Node2D
 signal scene_finished
 signal scene_failed
 
+var active : bool = false
 
 var character = null setget new_character
 var movement_queue = []
@@ -78,5 +79,8 @@ func character_movement():
 
 
 func _physics_process(_delta):
+	if not active:
+		return
+	
 	character_movement()
 	character_movement_input()

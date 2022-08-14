@@ -1,6 +1,10 @@
 extends Control
 
 signal dice_selected (dice_value)
+signal scene_finished
+signal scene_failed
+
+var active : bool = false
 
 const dice = preload("res://UI/Dice.tscn")
 

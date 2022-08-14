@@ -1,5 +1,10 @@
 extends Control
 
+signal scene_finished
+signal scene_failed
+
+var active : bool = false
+
 const card_view_scene = preload("res://UI/CardView.tscn")
 
 var character : Character = Character.new() setget update_cards_shown

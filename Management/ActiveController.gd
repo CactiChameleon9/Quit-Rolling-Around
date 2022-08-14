@@ -11,7 +11,8 @@ func _process(_delta):
 func the_pausing():
 	# iterate through the children, allowing only the current active node to run
 	for i in len(get_children()):
-		get_child(i).pause_mode = 0 if i == current_active else 1
+		if get_child(i).has_signal("scene_finished"): # only change if active var should exist
+			get_child(i).active = true if i == current_active else false
 
 
 func the_connecting():
@@ -23,7 +24,7 @@ func the_connecting():
 		if (get_child(i).has_signal("scene_finished") and
 			get_child(i).get_signal_connection_list("scene_finished") == []):
 			
-			get_child(i).connect("scene_finished", self, child_finished())
+			get_child(i).connect("scene_finished", self, "child_finished")
 		
 		
 		# connect the failed signal if it exists and
@@ -31,7 +32,7 @@ func the_connecting():
 		if (get_child(i).has_signal("scene_failed") and
 			get_child(i).get_signal_connection_list("scene_failed") == []):
 			
-			get_child(i).connect("scene_failed", self, child_failed())
+			get_child(i).connect("scene_failed", self, "child_failed")
 
 
 func child_finished():
