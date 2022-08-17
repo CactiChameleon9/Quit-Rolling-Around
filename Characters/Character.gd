@@ -12,6 +12,8 @@ onready var target_position : Vector2 = position
 var moving : bool = false
 
 var cards = [] setget ,get_cards
+var dice = []
+
 
 func get_cards():
 	for child in get_children():
