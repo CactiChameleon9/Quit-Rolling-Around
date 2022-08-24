@@ -13,6 +13,7 @@ export (String) var view_property = "item"
 var character : Character = Character.new() setget update_items_shown
 var item_views = []
 
+var hovering_view : int = -1
 
 func update_items_shown(new_character = null):
 	
@@ -38,3 +39,42 @@ func remove_from_item_views(item_view):
 	var to_remove : int = item_views.find(item_view)
 	if to_remove != -1:
 		item_views.remove(to_remove)
+
+
+func _physics_process(_delta):
+	if not active:
+		hovering_view = -1
+		return
+	
+	# set the hovering view if just selected
+	if hovering_view == -1:
+		hovering_view = 0
+		item_views[hovering_view].hovering = false
+	
+	# move the selection forward or backward the list depending on input
+	if (Input.is_action_just_pressed("ui_down") or 
+		Input.is_action_just_pressed("ui_right")):
+			
+			# disable hovering on the previous item
+			item_views[hovering_view].hovering = false
+			
+			# cycle forward
+			hovering_view += 1
+			if hovering_view >= len(item_views):
+				hovering_view = 0
+			
+			# enable hovering on the present item
+			item_views[hovering_view].hovering = true
+	
+	if (Input.is_action_just_pressed("ui_up") or
+		Input.is_action_just_pressed("ui_left")):
+			
+			item_views[hovering_view].hovering = false
+			
+			hovering_view -= 1
+			if hovering_view < 0:
+				hovering_view = len(item_views) -1
+			
+			item_views[hovering_view].hovering = true
+	
+	

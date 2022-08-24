@@ -13,6 +13,8 @@ const TYPE_COLORS = [
 const input_dice_view = preload("res://UI/InputDiceView.tscn")
 var input_dice_views = []
 
+var hovering : bool  = false setget set_hovering
+
 var card : Card = Card.new() setget update_cardview
 
 
@@ -116,3 +118,19 @@ func disconnect_signals():
 
 func connect_signals():
 	card.connect("card_removed", self, "card_view_run")
+
+
+func set_hovering(value : bool):
+	# set the hovering value
+	hovering = value
+	
+	# wait until the old animation is finished
+	if ($AnimationPlayer.current_animation != "Hovering"
+		and $AnimationPlayer.current_animation != ""):
+		yield($AnimationPlayer, "animation_finished")
+	
+	if hovering:
+		$AnimationPlayer.play("Hovering")
+	
+	if not hovering:
+		$AnimationPlayer.play("RESET")

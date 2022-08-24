@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://UI/CardView.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Metropolis-font/Metropolis-Bold.ttf" type="DynamicFontData" id=4]
@@ -81,6 +81,23 @@ tracks/2/keys = {
 "args": [  ],
 "method": "play_input_dice_animations"
 } ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Hovering"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("LocalPosition:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 6.9644, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -40 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -168,4 +185,5 @@ autowrap = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Drop Off" = SubResource( 10 )
 "anims/Fly Off" = SubResource( 7 )
+anims/Hovering = SubResource( 11 )
 anims/RESET = SubResource( 8 )
