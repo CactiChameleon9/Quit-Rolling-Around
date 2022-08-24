@@ -2,16 +2,16 @@ tool
 extends Control
 
 const dice_image_string = "res://Assets/Dice/Dice%s.png"
-const selected_shader = preload("res://UI/RainbowOutline.tres")
+const hovering_shader = preload("res://UI/RainbowOutline.tres")
 
 export (int, 0, 6) var dice_value : int = 0
-export var selected : bool setget set_selected
+export var hovering : bool setget set_hovering
 
 
-func set_selected(new_value):
-	selected = new_value
-	if selected:
-		self.material = selected_shader
+func set_hovering(new_value):
+	hovering = new_value
+	if hovering:
+		self.material = hovering_shader
 	else:
 		self.material = null
 
