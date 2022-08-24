@@ -1,90 +1,16 @@
-tool
-extends Control
+extends Node
+class_name Card
 
 signal return_dice(dice_number)
 signal do_movement(movement_range)
 signal do_damage(damage, damage_range)
 signal do_effect(effect, effect_range)
-signal card_removed(card_self)
+signal card_removed()
 
-const TYPE_COLORS = [
-	Color("#db4758"), # DAMAGE
-	Color("#3cc361"), # UTILITY
-	Color("#bcb64f"), # SPECIAL
-	Color("#bc5ec6"), # EFFECT
-	Color("#a4a4a4"), # MOVEMENT
-]
-
-const dice_node = preload("res://UI/Dice.tscn")
-const dice_texture_string : String = "res://Assets/Dice/Dice%s.png"
-
-export (Resource) var card_info
+export (Resource) var card_info = preload("res://Assets/CardDB/Default.tres")
 
 var input_dice = []
-var addition_dice_amount : int setget _set_addition_dice
-var hovering_dice setget _set_hovering_dice
-
-
-func _set_hovering_dice(dice_value):
-	var input_dice0 = $VBox/AutoGrid.get_node_from_grid("InputDice0")
-	
-	if hovering_dice == dice_value:
-		return
-	
-	hovering_dice = dice_value
-	
-	#remove the dice preview if not hovering
-	if dice_value == null:
-		var input_dice_children = input_dice0.get_children()
-		if len(input_dice_children) <= 1:
-			return
-		var old_dice = input_dice_children[1]
-		input_dice0.remove_child(old_dice)
-		return
-	
-	var new_dice = dice_node.instance()
-	new_dice.dice_value = dice_value
-	input_dice0.add_child(new_dice)
-
-
-func _set_addition_dice(new_amount):
-	addition_dice_amount = new_amount
-	$VBox/AutoGrid.get_node_from_grid("InputDice0").get_child("Number").text = String(new_amount)
-
-
-func _ready():
-
-	# change the color of the panel to match the appropriate type
-	var card_style = $PanelContainer.get('custom_styles/panel').duplicate(true)
-	card_style.set_bg_color(TYPE_COLORS[card_info.type])
-	$PanelContainer.set('custom_styles/panel', card_style)
-	
-	# add more input dice if needed
-	for i in range(1, card_info.number_of_dice):
-		var new_input_dice = get_node("VBox/AutoGrid/InputDice0").duplicate(true)
-		new_input_dice.name = "InputDice%s" % i
-		$VBox/AutoGrid.add_child(new_input_dice)
-	
-	# change the name and description
-	$VBox/Name.text = card_info.name
-	$VBox/Description.text = card_info.description
-	
-	#maybe set the addition amount
-	if card_info.addition_dice:
-		self.addition_dice_amount = card_info.addition_amount
-	
-	# show the requirements for a dice
-	# TODO more difference from addition, smaller font, >, <, etc. 
-	if len(card_info.accepted_dice) != 0:
-		var dice_string : String = ""
-		for num in card_info.accepted_dice:
-			dice_string += String(num)
-			dice_string += ","
-		
-		dice_string = dice_string.trim_suffix(",")
-		
-		$VBox/AutoGrid/InputDice0/Number.text = dice_string
-
+var addition_dice_amount = card_info.addition_amount
 
 func dice_inputted(dice_number):
 	
@@ -122,20 +48,19 @@ func dice_inputted(dice_number):
 				input_dice.remove(0)
 	
 	
-	# Put the Dice in the slot
-	var input_dice0 = $VBox/AutoGrid.get_node_from_grid("InputDice0")
-	input_dice0.texture = load(dice_texture_string % dice_number)
-	
-	
 	# -- RUN DICE CHECKS --
-	if card_info.addition_dice:
-		self.addition_dice_amount -= dice_number
-		input_dice.remove(0)
-		if addition_dice_amount > 0:
-			return
-		else:
-			run_card()
 	
+	# if the addition type, then lower the counter by the input dice
+	# also check (and run) if the amount is reaches and
+	if card_info.addition_dice:
+		
+		addition_dice_amount -= dice_number
+		
+		if addition_dice_amount <= 0:
+			run_card()
+		return
+	
+	# run the card if the correct number of dice have been inputted (and normal dice)
 	if (len(input_dice) == card_info.number_of_dice
 		and not card_info.addition_dice):
 		run_card()
@@ -213,6 +138,6 @@ func run_card():
 	input_dice = []
 	
 	#card is used, disappear
-	emit_signal("card_removed", self)
+	emit_signal("card_removed")
 	queue_free()
 

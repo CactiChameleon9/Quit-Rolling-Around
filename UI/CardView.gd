@@ -1,106 +1,136 @@
 extends Control
 
-signal return_dice(dice_number)
-signal do_movement(movement_range)
-signal do_damage(damage, damage_range)
-signal do_effect(effect, effect_range)
+signal card_view_removed(card_view)
 
-const card = preload("res://UI/Card.tscn")
-const card_db_string = "res://Assets/CardDB/%s.tres"
+const TYPE_COLORS = [
+	Color("#db4758"), # DAMAGE
+	Color("#3cc361"), # UTILITY
+	Color("#bcb64f"), # SPECIAL
+	Color("#bc5ec6"), # EFFECT
+	Color("#a4a4a4"), # MOVEMENT
+]
 
+const input_dice_view = preload("res://UI/InputDiceView.tscn")
+var input_dice_views = []
 
-var selected : bool = false
-var hovering_card = null
+var hovering : bool  = false setget set_hovering
 
-var current_cards = []
-
-var currently_holding_dice = null
-
-
-func emit_return_dice(dice_number):
-	emit_signal("return_dice", dice_number)
-func emit_do_movement(movement_range):
-	emit_signal("do_movement", movement_range)
-func emit_do_damage(damage, damage_range):
-	emit_signal("do_damage", damage, damage_range)
-func emit_do_effect(effect, effect_range):
-	emit_signal("do_effect", effect, effect_range)
+var card : Card = Card.new() setget update_cardview
 
 
-func set_currently_holding_dice(dice_number : int):
-	currently_holding_dice = dice_number
-
-
-func remove_card(card):
-	var card_index = current_cards.find(card)
-	current_cards.remove(card_index)
-
-
-func _physics_process(delta):
+func update_cardview(new_card = null):
 	
-	# no keyboard input if not selected  
-	if not selected:
-		hovering_card = null
+	# allow the update card function to work with and without setget
+	if new_card != null and new_card != card:
+		disconnect_signals()
+		card = new_card
+		connect_signals()
+	
+	# change the color of the panel to match the appropriate type
+	var card_style = $"%Background".get('custom_styles/panel').duplicate(true)
+	card_style.set_bg_color(TYPE_COLORS[card.card_info.type])
+	$"%Background".set('custom_styles/panel', card_style)
+	
+	# change the name and description
+	$"%Name".text = card.card_info.name
+	$"%Description".text = card.card_info.description
+	
+	# remove the old input dice views
+	for i in input_dice_views:
+		i.queue_free()
+	input_dice_views = []
+	
+	# add the correct number of input dice views
+	for i in card.card_info.number_of_dice:
+		add_input_dice_view()
+	
+	# set the extra info
+	var extra_text = ""
+	if card.card_info.addition_dice == true:
+		# set the dice to have the remaining addition 
+		extra_text = str(card.addition_dice_amount)
+	
+	else:
+		# set the dice to have a list of accepted dice
+		for dice in card.card_info.accepted_dice:
+			extra_text += str(dice) + ", "
+		extra_text = extra_text.trim_suffix(", ")
+	
+	for i in input_dice_views:
+		i.set_extra_info(extra_text)
+	
+	# set bold dice if addition dice
+	if card.card_info.addition_dice == true:
+		for i in input_dice_views:
+			i.bold = true
+	
+	#TODO: same dice UI support
+	#TODO: hover UI support maybe
+
+
+# add an input_dice_view to the array (for easy management)
+# and to the autogrid
+func add_input_dice_view():
+	var dice_view = input_dice_view.instance() 
+	input_dice_views.append(dice_view)
+	$"%AutoGrid".add_child(dice_view)
+
+
+# this is run once the card emits card_removed
+func card_view_run(do_emit_signal : bool = true):
+	# emit card_view_removed signal
+	if do_emit_signal: emit_signal("card_view_removed", self)
+	
+	# play the disappearing input dice animation
+	play_input_dice_animations()
+	
+	# play the using animation
+	$AnimationPlayer.play("Fly Off")
+	yield($AnimationPlayer, "animation_finished")
+	
+	# remove the card completely once used
+	queue_free()
+
+
+func card_view_remove(do_emit_signal : bool = true):
+	# emit card_view_removed signal
+	if do_emit_signal: emit_signal("card_view_removed", self)
+
+	# play the remove animation
+	$AnimationPlayer.play("Drop Off")
+	yield($AnimationPlayer, "animation_finished")
+	
+	# remove the card completely once used
+	queue_free()
+
+
+func play_input_dice_animations():
+	for i in input_dice_views:
+		i.run_disappear_animation()
+
+
+func disconnect_signals():
+	if card.get_signal_connection_list("card_removed") == []:
 		return
 	
-	# if selected card is null, add a value
-	if not hovering_card:
-		hovering_card = 0
-	
-	# move the selection forward or backward the list depending on input
-	if (Input.is_action_just_pressed("ui_down") or 
-		Input.is_action_just_pressed("ui_right")):
-			
-			current_cards[hovering_card].hovering_dice = null
-			
-			hovering_card += 1
-			if hovering_card >= len(current_cards):
-				hovering_card = 0
-	
-	if (Input.is_action_just_pressed("ui_up") or
-		Input.is_action_just_pressed("ui_left")):
-			
-			current_cards[hovering_card].hovering_dice = null
-			
-			hovering_card -= 1
-			if hovering_card < 0:
-				hovering_card = len(current_cards) -1
-	
-	# show the dice over the card if hovering
-	current_cards[hovering_card].hovering_dice = currently_holding_dice
-	
-	#if the enter key is pressed, input the dice into the card
-	if Input.is_action_just_pressed("ui_accept"):
-		current_cards[hovering_card].hovering_dice = null
-		current_cards[hovering_card].dice_inputted(currently_holding_dice)
-		hovering_card = 0
-		selected = false
+	card.disconnect("card_removed", self, "card_view_run")
 
 
-func draw_card(specific_card : String = ""):
-	# make a new card instance and add it to the grid container
-	var new_card = card.instance()
+func connect_signals():
+	card.connect("card_removed", self, "card_view_run")
+
+
+func set_hovering(value : bool):
+	# set the hovering value
+	hovering = value
 	
-	# check if a specific card data exists
-	var card_data_check = File.new()
-	var card_data_exists : bool = card_data_check.file_exists(card_db_string % specific_card)
+	# wait until the old animation is finished
+	if ($AnimationPlayer.current_animation != "Hovering"
+		and $AnimationPlayer.current_animation != ""):
+		yield($AnimationPlayer, "animation_finished")
 	
-	# if a specifc card choosen, make new card that type
-	if card_data_exists:
-		new_card.card_info = load(card_db_string % specific_card)
-	else: #no card choosen, pick default
-		new_card.card_info = load(card_db_string % "Default")
+	if hovering:
+		$AnimationPlayer.play("Hovering")
 	
-	$Margin/HBox.add_child(new_card)
-	
-	# connect new_card.x signal to self.x 
-	new_card.connect("return_dice", self, "emit_return_dice")
-	new_card.connect("do_movement", self, "emit_do_movement")
-	new_card.connect("do_damage", self, "emit_do_damage")
-	new_card.connect("do_effect", self, "emit_do_effect")
-	
-	# connect the signal remove card signal
-	new_card.connect("card_removed", self, "remove_card")
-	
-	# add the current card to the list of card
-	current_cards.append(new_card)
+	if not hovering:
+		$AnimationPlayer.play("RESET")
